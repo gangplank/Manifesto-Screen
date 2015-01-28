@@ -2,9 +2,12 @@
   <head>
     <title>Gangplank Manifesto Screen</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/normalize.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" media="screen" title="no title" charset="utf-8">
     <script charset="utf-8">
       $(document).ready(function() {
-        var revolutionSpeed = '1'; // In Seconds...
+        var revolutionSpeed = '120'; // In Seconds...
         revolutionTimer = setInterval(function() {
           if ($('html').css('-webkit-filter') == 'invert(1)') {
             $('html').css('-webkit-filter', 'invert(0)');
@@ -24,21 +27,24 @@
     </style>
   </head>
   <body>
-    <article id="post-1406" class="post-1406 page type-page status-publish hentry">
-      <p>Gangplank is a group of connected individuals and small businesses creating an economy of innovation and creativity. We envision a new economic engine comprised of collaboration and community, in contrast to silos and secrecy.</p>
-      <p>We have the talent. We just need to work together. Different environments need to overlap, to connect and to interact in order to transform our culture. In order to create a sustainable community based on trust, we value:</p>
-      <ul id="valuesList">
-        <li><strong>collaboration</strong> over&nbsp;<strong>competition</strong></li>
-        <li><strong>community</strong> over&nbsp;<strong>agendas</strong></li>
-        <li><strong>participation</strong> over&nbsp;<strong>observation</strong></li>
-        <li><strong>doing</strong> over&nbsp;<strong>saying</strong></li>
-        <li><strong>friendship</strong> over&nbsp;<strong>formality</strong></li>
-        <li><strong>boldness</strong> over&nbsp;<strong>assurance</strong></li>
-        <li><strong>learning</strong> over&nbsp;<strong>expertise</strong></li>
-        <li><strong>people</strong> over&nbsp;<strong>personalities</strong></li>
-      </ul>
-      <p>This new economy cannot thrive without engaging the larger business, creative, entrepreneurial, governmental, and technical communities together.</p>
-      <p>We believe that innovation breeds innovation. We will transform our culture into one supportive of the entrepreneurial spirit, of risk taking, of pioneering into the unknown territories as the founders of our municipalities once did. This requires education, entrepreneurship and creative workspaces.</p>
-      <p><em>We are Gangplank.</em></p>
-    </article>  </body>
+    <div class="row">
+      <article id="post-1406" class="post-1406 page type-page status-publish hentry">
+        <p>Gangplank is a group of connected individuals and small businesses creating an economy of innovation and creativity. We envision a new economic engine comprised of collaboration and community, in contrast to silos and secrecy.</p>
+        <p>We have the talent. We just need to work together. Different environments need to overlap, to connect and to interact in order to transform our culture. In order to create a sustainable community based on trust, we value:</p>
+        <ul id="valuesList">
+          <li><strong>collaboration</strong> over&nbsp;<strong>competition</strong></li>
+          <li><strong>community</strong> over&nbsp;<strong>agendas</strong></li>
+          <li><strong>participation</strong> over&nbsp;<strong>observation</strong></li>
+          <li><strong>doing</strong> over&nbsp;<strong>saying</strong></li>
+          <li><strong>friendship</strong> over&nbsp;<strong>formality</strong></li>
+          <li><strong>boldness</strong> over&nbsp;<strong>assurance</strong></li>
+          <li><strong>learning</strong> over&nbsp;<strong>expertise</strong></li>
+          <li><strong>people</strong> over&nbsp;<strong>personalities</strong></li>
+        </ul>
+        <p>This new economy cannot thrive without engaging the larger business, creative, entrepreneurial, governmental, and technical communities together.</p>
+        <p>We believe that innovation breeds innovation. We will transform our culture into one supportive of the entrepreneurial spirit, of risk taking, of pioneering into the unknown territories as the founders of our municipalities once did. This requires education, entrepreneurship and creative workspaces.</p>
+        <p><em>We are Gangplank.</em></p>
+      </article>
+    </div>
+  </body>
 </html>
