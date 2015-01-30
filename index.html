@@ -5,19 +5,56 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/js/foundation.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/normalize.min.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" media="screen" title="no title" charset="utf-8">
-    <script charset="utf-8">
+    <script src="jquery.countdown360.js" type="text/javascript" charset="utf-8"></script>    <script charset="utf-8">
       $(document).ready(function() {
-        var revolutionSpeed = '120'; // In Seconds...
+
+        var revolutionSpeedSeconds = '60';
+        var revolutionSpeedMilliseconds = revolutionSpeedSeconds*1000;
+
+        $("#countdown").countdown360({
+          radius      : 60,
+          seconds     : revolutionSpeedSeconds,
+          fontColor   : '#FFFFFF',
+          autostart   : false,
+          onComplete  : function () { console.log('Timer finished...') }
+        }).start()
+
+
         revolutionTimer = setInterval(function() {
-          if ($('html').css('-webkit-filter') == 'invert(1)') {
-            $('html').css('-webkit-filter', 'invert(0)');
+          $('[slide="'+$('#mainSlideWrapper').attr('currentSlide')+'"]').hide();
+          possibleNextSlide = Number($('#mainSlideWrapper').attr('currentSlide')) + 1;
+          if ($('[slide="'+possibleNextSlide.toString()+'"]').length) {
+            console.log('exists');
+            $('[slide="'+possibleNextSlide+'"]').show();
+            $('#mainSlideWrapper').attr('currentSlide', possibleNextSlide);
           } else {
-            $('html').css('-webkit-filter', 'invert(1)');
+            console.log('not exists');
+            $('[slide="1"]').show();
+            $('#mainSlideWrapper').attr('currentSlide', '0');
           }
-        }, revolutionSpeed*1000);
+
+          $("#countdown").countdown360({
+            radius      : 60,
+            seconds     : revolutionSpeedSeconds,
+            fontColor   : '#FFFFFF',
+            autostart   : false,
+            onComplete  : function () { console.log('Timer finished...') }
+          }).start()
+
+        }, revolutionSpeedMilliseconds);
+        // revolutionTimer = setInterval(function() {
+        //   if ($('html').css('-webkit-filter') == 'invert(1)') {
+        //     $('html').css('-webkit-filter', 'invert(0)');
+        //   } else {
+        //     $('html').css('-webkit-filter', 'invert(1)');
+        //   }
+        // }, revolutionSpeedMilliseconds);
       });
     </script>
     <style media="screen">
+      html {
+        -webkit-filter: invert(1);
+      }
       body {
         font-size: 1.9rem;
       }
@@ -27,14 +64,42 @@
       li {
         list-style-type: none;
       }
+      .hugeWords {
+        font-size: 9rem;
+      }
+      .centeredText {
+        text-align: center;
+      }
+      .fullWidth {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: initial;
+      }
+      #countdown {
+        position: fixed;
+        bottom:100px;
+        right:100px;
+        /* Setting dimensions not working :( */
+        height: 50px !important;
+        width: 50px !important;
+      }
     </style>
   </head>
   <body>
-    <div class="row page-1">
-      <div class="columns">
-        <p>
-          &nbsp;
-        </p>
+    <div id="mainSlideWrapper" class="row page-1 fullWidth" currentslide="0">
+      <p>
+        &nbsp;
+      </p>
+      <div slide="0" class="columns">
+        <div class="hugewords centeredText">
+          Welcome to <strong>Gangplank!</strong>
+        </div>
+      </div>
+      <div slide="1" class="large-2 medium-2 small-12 columns">
+        &nbsp;
+      </div>
+      <div slide="1" class="large-8 medium-8 small-12 columns" style="display:none;">
         <article id="post-1406" class="post-1406 page type-page status-publish hentry">
           <p>Gangplank is a group of connected individuals and small businesses creating an economy of innovation and creativity. We envision a new economic engine comprised of collaboration and community, in contrast to silos and secrecy.</p>
           <p>We have the talent. We just need to work together. Different environments need to overlap, to connect and to interact in order to transform our culture. In order to create a sustainable community based on trust, we value:</p>
@@ -53,6 +118,66 @@
           <p><em>We are Gangplank.</em></p>
         </article>
       </div>
+      <div slide="1" class="large-2 medium-2 small-12 columns">
+        &nbsp;
+      </div>
+      <div slide="2" class="columns" style="display:none;">
+        <div class="hugewords centeredText">
+          <div>
+            <strong>collaboration</strong> over&nbsp;<strong>competition</strong>
+          </div>
+        </div>
+      </div>
+      <div slide="3" class="columns" style="display:none;">
+        <div class="hugewords centeredText">
+          <div>
+            <strong>community</strong> over <strong>agendas</strong>
+          </div>
+        </div>
+      </div>
+      <div slide="4" class="columns" style="display:none;">
+        <div class="hugewords centeredText">
+          <div>
+            <strong>participation</strong> over <strong>observation</strong>
+          </div>
+        </div>
+      </div>
+      <div slide="5" class="columns" style="display:none;">
+        <div class="hugewords centeredText">
+          <div>
+            <strong>doing</strong> over <strong>saying</strong>
+          </div>
+        </div>
+      </div>
+      <div slide="6" class="columns" style="display:none;">
+        <div class="hugewords centeredText">
+          <div>
+            <strong>friendship</strong> over&nbsp;<strong>formality</strong>
+          </div>
+        </div>
+      </div>
+      <div slide="7" class="columns" style="display:none;">
+        <div class="hugewords centeredText">
+          <div>
+            <strong>boldness</strong> over&nbsp;<strong>assurance</strong>
+          </div>
+        </div>
+      </div>
+      <div slide="8" class="columns" style="display:none;">
+        <div class="hugewords centeredText">
+          <div>
+            <strong>learning</strong> over&nbsp;<strong>expertise</strong>
+          </div>
+        </div>
+      </div>
+      <div slide="9" class="columns" style="display:none;">
+        <div class="hugewords centeredText">
+          <div>
+            <strong>learning</strong> over&nbsp;<strong>expertise</strong>
+          </div>
+        </div>
+      </div>
     </div>
+    <div id="countdown"></div>
   </body>
 </html>
