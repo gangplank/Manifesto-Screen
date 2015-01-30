@@ -8,47 +8,50 @@
     <script src="jquery.countdown360.js" type="text/javascript" charset="utf-8"></script>    <script charset="utf-8">
       $(document).ready(function() {
 
-        var revolutionSpeedSeconds = '60';
+        var revolutionSpeedSeconds = '9';
         var revolutionSpeedMilliseconds = revolutionSpeedSeconds*1000;
 
         $("#countdown").countdown360({
-          radius      : 60,
+          radius      : 50,
           seconds     : revolutionSpeedSeconds,
           fontColor   : '#FFFFFF',
           autostart   : false,
-          onComplete  : function () { console.log('Timer finished...') }
+          startOverAfterAdding: true,
+          label: false,
+          onComplete  : timeToFire
         }).start()
 
+        function timeToFire() {
+          // Hide current slide
+          $('[slide="'+$('#mainSlideWrapper').attr('current-slide')+'"]').hide();
 
-        revolutionTimer = setInterval(function() {
-          $('[slide="'+$('#mainSlideWrapper').attr('currentSlide')+'"]').hide();
-          possibleNextSlide = Number($('#mainSlideWrapper').attr('currentSlide')) + 1;
-          if ($('[slide="'+possibleNextSlide.toString()+'"]').length) {
-            console.log('exists');
-            $('[slide="'+possibleNextSlide+'"]').show();
-            $('#mainSlideWrapper').attr('currentSlide', possibleNextSlide);
+          // Discover number of next slide and save to dom:
+          possibleNextSlide = Number($('#mainSlideWrapper').attr('current-slide')) + 1;
+          if ($('[slide='+possibleNextSlide.toString()+']').length) {
+            $('#mainSlideWrapper').attr('current-slide', possibleNextSlide);
           } else {
-            console.log('not exists');
-            $('[slide="1"]').show();
-            $('#mainSlideWrapper').attr('currentSlide', '0');
+            $('#mainSlideWrapper').attr('current-slide', '0');
           }
 
-          $("#countdown").countdown360({
-            radius      : 60,
-            seconds     : revolutionSpeedSeconds,
-            fontColor   : '#FFFFFF',
-            autostart   : false,
-            onComplete  : function () { console.log('Timer finished...') }
-          }).start()
+          // Set variable to next slide number:
+          var currentSlideNumber = Number($('#mainSlideWrapper').attr('current-slide'));
 
-        }, revolutionSpeedMilliseconds);
-        // revolutionTimer = setInterval(function() {
-        //   if ($('html').css('-webkit-filter') == 'invert(1)') {
-        //     $('html').css('-webkit-filter', 'invert(0)');
-        //   } else {
-        //     $('html').css('-webkit-filter', 'invert(1)');
-        //   }
-        // }, revolutionSpeedMilliseconds);
+          // Show next slide:
+          $('[slide="'+currentSlideNumber+'"]').show();
+
+          // Set new timers checking first for any overrides:
+          if ($('#mainSlideWrapper[global-timer-override]').length != 0){
+            console.log('TIMER: Globally overriding to: '+ overrideRevolutionSpeedSeconds);
+            var overrideRevolutionSpeedSeconds = Number($('#mainSlideWrapper[global-timer-override').attr('global-timer-override'));
+            $("#countdown").countdown360().addSeconds(overrideRevolutionSpeedSeconds);
+          } else if ($('[slide="'+currentSlideNumber+'"][countdown-override]').length != 0) {
+            console.log('TIMER: Overriding to: '+ overrideRevolutionSpeedSeconds);
+            var overrideRevolutionSpeedSeconds = Number($('[slide="'+currentSlideNumber+'"][countdown-override]').attr('countdown-override'));
+            $("#countdown").countdown360().addSeconds(overrideRevolutionSpeedSeconds);
+          } else {
+            $("#countdown").countdown360().addSeconds(revolutionSpeedSeconds);
+          }
+        }
       });
     </script>
     <style media="screen">
@@ -57,6 +60,8 @@
       }
       body {
         font-size: 1.9rem;
+        display: flex;
+        align-items: center;
       }
       #valuesList {
         font-size: 2.3rem;
@@ -87,7 +92,7 @@
     </style>
   </head>
   <body>
-    <div id="mainSlideWrapper" class="row page-1 fullWidth" currentslide="0">
+    <div id="mainSlideWrapper" class="row page-1 fullWidth" current-slide="0">
       <p>
         &nbsp;
       </p>
@@ -99,7 +104,7 @@
       <div slide="1" class="large-2 medium-2 small-12 columns">
         &nbsp;
       </div>
-      <div slide="1" class="large-8 medium-8 small-12 columns" style="display:none;">
+      <div slide="1" class="large-8 medium-8 small-12 columns" style="display:none;" countdown-override="50">
         <article id="post-1406" class="post-1406 page type-page status-publish hentry">
           <p>Gangplank is a group of connected individuals and small businesses creating an economy of innovation and creativity. We envision a new economic engine comprised of collaboration and community, in contrast to silos and secrecy.</p>
           <p>We have the talent. We just need to work together. Different environments need to overlap, to connect and to interact in order to transform our culture. In order to create a sustainable community based on trust, we value:</p>
