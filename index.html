@@ -8,11 +8,12 @@
     <script src="jquery.countdown360.js" type="text/javascript" charset="utf-8"></script>    <script charset="utf-8">
       $(document).ready(function() {
 
+
         var revolutionSpeedSeconds = '9';
         var revolutionSpeedMilliseconds = revolutionSpeedSeconds*1000;
 
         $("#countdown").countdown360({
-          radius      : 50,
+          radius      : 23,
           seconds     : revolutionSpeedSeconds,
           fontColor   : '#FFFFFF',
           autostart   : false,
@@ -21,6 +22,10 @@
           onComplete  : timeToFire
         }).start()
 
+        window.skipAhead = function () {
+          $("#countdown").countdown360().stop();
+          timeToFire();
+        }
         function timeToFire() {
           // Hide current slide
           $('[slide="'+$('#mainSlideWrapper').attr('current-slide')+'"]').hide();
@@ -43,25 +48,39 @@
           if ($('#mainSlideWrapper[global-timer-override]').length != 0){
             console.log('TIMER: Globally overriding to: '+ overrideRevolutionSpeedSeconds);
             var overrideRevolutionSpeedSeconds = Number($('#mainSlideWrapper[global-timer-override').attr('global-timer-override'));
-            $("#countdown").countdown360().addSeconds(overrideRevolutionSpeedSeconds);
+            $("#countdown").countdown360().startOverAt(overrideRevolutionSpeedSeconds);
           } else if ($('[slide="'+currentSlideNumber+'"][countdown-override]').length != 0) {
             console.log('TIMER: Overriding to: '+ overrideRevolutionSpeedSeconds);
             var overrideRevolutionSpeedSeconds = Number($('[slide="'+currentSlideNumber+'"][countdown-override]').attr('countdown-override'));
-            $("#countdown").countdown360().addSeconds(overrideRevolutionSpeedSeconds);
+            $("#countdown").countdown360().startOverAt(overrideRevolutionSpeedSeconds);
           } else {
-            $("#countdown").countdown360().addSeconds(revolutionSpeedSeconds);
+            $("#countdown").countdown360().startOverAt(revolutionSpeedSeconds);
           }
         }
+        $( document ).keypress(function( event ) {
+          // $('#countdown').html(event.which.toString());
+          if ( event.which == 110 ) {
+           event.preventDefault();
+           timeToFire();
+         }
+       });
+
       });
     </script>
     <style media="screen">
       html {
         -webkit-filter: invert(1);
+        display: table;
+        padding: 100px;
+        width: 100%;
       }
       body {
-        font-size: 1.9rem;
+        font-size: 1.9em;
         display: flex;
         align-items: center;
+      }
+      p {
+        font-size: 1.2rem;
       }
       #valuesList {
         font-size: 2.3rem;
@@ -70,7 +89,7 @@
         list-style-type: none;
       }
       .hugeWords {
-        font-size: 9rem;
+        font-size: 12rem;
       }
       .centeredText {
         text-align: center;
@@ -82,12 +101,9 @@
         max-width: initial;
       }
       #countdown {
-        position: fixed;
-        bottom:190px;
-        right:190px;
-        /* Setting dimensions not working :( */
-        height: 50px !important;
-        width: 50px !important;
+        position: absolute;
+        bottom:0;
+        right:0;
       }
     </style>
   </head>
