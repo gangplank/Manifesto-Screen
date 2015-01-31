@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.0/css/foundation.min.css" media="screen" title="no title" charset="utf-8">
     <script src="jquery.countdown360.js" type="text/javascript" charset="utf-8"></script>    <script charset="utf-8">
       $(document).ready(function() {
-
-
+        
+        // Default slide timer in seconds:
         var revolutionSpeedSeconds = '9';
+
+        // Convert to milliseconds:
         var revolutionSpeedMilliseconds = revolutionSpeedSeconds*1000;
 
+        // Create and intial timer using jQuery Countdown360
         $("#countdown").countdown360({
           radius      : 23,
           seconds     : revolutionSpeedSeconds,
@@ -22,10 +25,13 @@
           onComplete  : timeToFire
         }).start()
 
+        // Skip a slide.
         window.skipAhead = function () {
           $("#countdown").countdown360().stop();
           timeToFire();
         }
+
+        // Main new slide handler:
         function timeToFire() {
           // Hide current slide
           $('[slide="'+$('#mainSlideWrapper').attr('current-slide')+'"]').hide();
@@ -57,6 +63,7 @@
             $("#countdown").countdown360().startOverAt(revolutionSpeedSeconds);
           }
         }
+        // Press the 'n' key to skip to next frame:
         $( document ).keypress(function( event ) {
           // $('#countdown').html(event.which.toString());
           if ( event.which == 110 ) {
