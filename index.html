@@ -42,6 +42,11 @@
             $('#mainSlideWrapper').attr('current-slide', possibleNextSlide);
           } else {
             $('#mainSlideWrapper').attr('current-slide', '0');
+            if ($('#mainSlideWrapper').attr('invertColor') == 'yes') {
+              $('#mainSlideWrapper').attr('invertColor', 'no');
+            } else {
+              $('#mainSlideWrapper').attr('invertColor', 'yes');
+            }
           }
 
           // Set variable to next slide number:
@@ -62,6 +67,13 @@
           } else {
             $("#countdown").countdown360().startOverAt(revolutionSpeedSeconds);
           }
+
+          // Invert screen colors based on #mainSlideWrapper attribute:
+          if ($('#mainSlideWrapper').attr('invertColor') == 'yes') {
+            $('html').css('-webkit-filter', 'invert(1)');
+          } else {
+            $('html').css('-webkit-filter', 'invert(0)');
+          }
         }
         // Press the 'n' key to skip to next frame:
         $( document ).keypress(function( event ) {
@@ -76,14 +88,13 @@
     </script>
     <style media="screen">
       html {
-        -webkit-filter: invert(1);
         display: table;
-        padding: 90px;
         width: 100%;
       }
       body {
         font-size: 1.9em;
         display: table-cell;
+        padding: 90px;
         vertical-align: middle;
       }
       p {
